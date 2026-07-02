@@ -2,7 +2,7 @@
  * ==========================================================================
  * APPLICATION ENTRY POINT (js/app.js)
  * Architecture Coordinator, Routing/State Management & XSS Protection Layer
- * Lead Architect: Yauheni Buka
+ * Automation & AI Analyst: Yauheni Buka
  * ==========================================================================
  */
 
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         metricThroughput: document.getElementById('metric-throughput'),
         metricUptime: document.getElementById('metric-uptime'),
         metricHash: document.getElementById('metric-hash'),
-        btnExportPdf: document.getElementById('btn-export-pdf'),
         btnZoomIn: document.getElementById('btn-zoom-in'),
         btnZoomOut: document.getElementById('btn-zoom-out'),
         btnResetView: document.getElementById('btn-reset-view')
@@ -71,14 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnResetView: domCache.btnResetView
     });
 
-    // 4. Initialize Enterprise PDF Export Handler
-    if (domCache.btnExportPdf) {
-        domCache.btnExportPdf.addEventListener('click', () => {
-            window.print();
-        });
-    }
-
-    // 5. Handle Responsive Window Resize
+    // 4. Handle Responsive Window Resize
     window.addEventListener('resize', () => {
         renderMeasuringRulers(domCache.rulerX, domCache.rulerY);
         updateOrthogonalConnectors();
