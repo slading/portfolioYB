@@ -2,7 +2,7 @@
  * ==========================================================================
  * BLUEPRINT MATH & INTERACTIVITY MODULE (js/blueprint.js)
  * Coordinate Axes Tracking, Canvas Pan/Zoom Engine, & Orthogonal Vector Routing
- * Lead Architect: Yauheni Buka
+ * Automation & AI Analyst: Yauheni Buka
  * ==========================================================================
  */
 
