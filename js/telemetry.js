@@ -2,7 +2,7 @@
  * ==========================================================================
  * TELEMETRY MODULE (js/telemetry.js)
  * Real-time UTC System Clock & High-Precision Sidebar Metrics Engine
- * Lead Architect: Yauheni Buka
+ * Automation & AI Analyst: Yauheni Buka
  * ==========================================================================
  */
 
