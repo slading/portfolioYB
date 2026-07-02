@@ -1,0 +1,263 @@
+/* ==========================================================================
+   SCI-FI ARCHITECTURAL BLUEPRINT DESIGN SYSTEM
+   Lead UI/UX Architect: Yauheni Buka
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #060913;
+    color: #8b9bb4;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Infinite Architectural Grid Overlay */
+.blueprint-grid {
+    background-color: #060913;
+    background-image: 
+        linear-gradient(to right, rgba(42, 54, 79, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(42, 54, 79, 0.45) 1px, transparent 1px),
+        linear-gradient(to right, rgba(31, 41, 55, 0.28) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(31, 41, 55, 0.28) 1px, transparent 1px);
+    background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+/* Radial Vignette & Scanline Overlay */
+.grid-overlay {
+    background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(6, 9, 19, 0.88) 95%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%);
+    background-size: 100% 100%, 100% 4px;
+    pointer-events: none;
+}
+
+/* Custom Technical Scrollbars */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: #060913;
+    border-left: 1px solid #2a364f;
+}
+::-webkit-scrollbar-thumb {
+    background: #2a364f;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00FF8C;
+}
+
+/* HUD Technical Corner Brackets (Strict L-Shaped Corners) */
+.hud-corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    z-index: 20;
+}
+.hud-tl { top: -1px; left: -1px; border-top: 2px solid #2a364f; border-left: 2px solid #2a364f; }
+.hud-tr { top: -1px; right: -1px; border-top: 2px solid #2a364f; border-right: 2px solid #2a364f; }
+.hud-bl { bottom: -1px; left: -1px; border-bottom: 2px solid #2a364f; border-left: 2px solid #2a364f; }
+.hud-br { bottom: -1px; right: -1px; border-bottom: 2px solid #2a364f; border-right: 2px solid #2a364f; }
+
+/* Coordinate Rulers Canvas */
+.ruler-canvas {
+    image-rendering: pixelated;
+}
+
+/* SVG Running Dots Animation */
+@keyframes dash-flow {
+    to { stroke-dashoffset: -40; }
+}
+.animated-connector-sentinel {
+    stroke-dasharray: 6, 8;
+    animation: dash-flow 1.2s linear infinite;
+}
+.animated-connector-repolens {
+    stroke-dasharray: 6, 8;
+    animation: dash-flow 1.2s linear infinite;
+}
+
+/* Target Overlay Scanning Line Animation */
+@keyframes target-scan {
+    0% { top: 0%; opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0.8; }
+}
+.animate-target-scan {
+    animation: target-scan 3s ease-in-out infinite alternate;
+}
+
+/* Project Card Laser Scanline Beam Effect on Hover */
+@keyframes card-laser-sweep {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 0.85; }
+    90% { opacity: 0.85; }
+    100% { transform: translateY(600px); opacity: 0; }
+}
+.laser-scan-beam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    pointer-events: none;
+    z-index: 25;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.project-card:hover .laser-scan-beam {
+    opacity: 1;
+    animation: card-laser-sweep 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Blueprint Markers & Action Buttons Styling */
+.blueprint-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border-radius: 0;
+    text-decoration: none;
+}
+
+/* Neon Glow Hover & Pulse Effects */
+.neon-repolens-box {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.neon-repolens-box:hover {
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.65), inset 0 0 15px rgba(59, 130, 246, 0.25);
+    border-color: #3B82F6 !important;
+}
+
+.sentinel-node-shadow {
+    box-shadow: 0 0 28px rgba(0, 255, 140, 0.18);
+}
+.repolens-node-shadow {
+    box-shadow: 0 0 28px rgba(59, 130, 246, 0.18);
+}
+
+/* Canvas Pan & Drag Cursor */
+.canvas-container {
+    cursor: grab;
+}
+.canvas-container:active {
+    cursor: grabbing;
+}
+
+/* ==========================================================================
+   ENTERPRISE PDF EXPORT / PRINT STYLES (@media print)
+   Converts dark CAD interface into clean A4 pure white resume
+   ========================================================================== */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 1.5cm;
+    }
+
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        background-image: none !important;
+        animation: none !important;
+        transition: none !important;
+        user-select: text !important;
+    }
+
+    body, html {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        height: auto !important;
+        width: auto !important;
+        overflow: visible !important;
+        font-family: 'JetBrains Mono', Courier, monospace !important;
+    }
+
+    .grid-overlay,
+    header,
+    aside,
+    .hud-corner,
+    #svg-layer,
+    #cursor-marker-x,
+    #cursor-marker-y,
+    .fixed,
+    .canvas-container > div:first-child,
+    .laser-scan-beam,
+    button {
+        display: none !important;
+    }
+
+    .canvas-container {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 0 !important;
+    }
+
+    #canvas-content {
+        position: relative !important;
+        display: block !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #node-center,
+    #node-sentinel,
+    #node-repolens {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 24px 0 !important;
+        padding: 16px !important;
+        background-color: #ffffff !important;
+        border: 1px solid #333333 !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    #node-center *,
+    #node-sentinel *,
+    #node-repolens * {
+        color: #000000 !important;
+        border-color: #555555 !important;
+    }
+
+    #print-header {
+        display: block !important;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #000000;
+        padding-bottom: 12px;
+    }
+
+    #node-sentinel img,
+    #node-repolens img {
+        filter: grayscale(100%) !important;
+        max-height: 180px !important;
+        width: auto !important;
+        margin: 8px 0 !important;
+    }
+}

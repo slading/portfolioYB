@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yauheni Buka | Sci-Fi Architectural Blueprint Portfolio</title>
+    
+    <!-- Google Fonts: JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        blueprint: {
+                            base: '#060913',
+                            line: 'rgba(31, 41, 55, 0.3)',
+                            gridMajor: 'rgba(42, 54, 79, 0.45)',
+                            gridMinor: 'rgba(31, 41, 55, 0.3)',
+                            accent: '#2a364f',
+                            text: '#8b9bb4',
+                            light: '#c3d0e5'
+                        },
+                        sentinel: {
+                            DEFAULT: '#00FF8C',
+                            glow: 'rgba(0, 255, 140, 0.25)',
+                            dim: 'rgba(0, 255, 140, 0.1)'
+                        },
+                        repolens: {
+                            DEFAULT: '#3B82F6',
+                            glow: 'rgba(59, 130, 246, 0.25)',
+                            dim: 'rgba(59, 130, 246, 0.1)'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- External Modular Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- External Modular JavaScript Application Core -->
+    <script type="module" src="js/app.js"></script>
+</head>
+<body class="blueprint-grid relative flex flex-col h-screen w-screen overflow-hidden text-xs">
+
+    <!-- PRINT ONLY DOCUMENT HEADER (Hidden in Web View) -->
+    <div id="print-header" class="hidden">
+        <h1 class="text-2xl font-bold uppercase font-mono">Yauheni Buka</h1>
+        <p class="text-sm font-mono mt-1">Lead UI/UX Engineer &amp; Frontend Architect | Architectural Blueprint CV</p>
+        <div class="text-xs font-mono mt-2 flex flex-col gap-1 border-t border-black pt-2">
+            <div class="flex justify-between font-bold">
+                <span>Email: yauhenibuka.work@proton.me</span>
+                <span>GitHub: https://github.com/slading</span>
+            </div>
+            <div class="flex justify-between text-gray-700">
+                <span>ID: YB-ARCH-2026</span>
+                <span>DOM/AST Telemetry &amp; Compliance Engineering</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY: Radial Shadow & Scanlines -->
+    <div class="grid-overlay absolute inset-0 z-0"></div>
+
+    <!-- TECHNICAL CROSSHAIRS IN 4 CORNERS OF VIEWPORT -->
+    <div class="fixed top-7 left-8 z-50 pointer-events-none opacity-70">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF8C" stroke-width="1">
+            <line x1="12" y1="0" x2="12" y2="24"/>
+            <line x1="0" y1="12" x2="24" y2="12"/>
+            <circle cx="12" cy="12" r="4" fill="none"/>
+        </svg>
+    </div>
+    <div class="fixed top-7 right-3 z-50 pointer-events-none opacity-70">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1">
+            <line x1="12" y1="0" x2="12" y2="24"/>
+            <line x1="0" y1="12" x2="24" y2="12"/>
+            <circle cx="12" cy="12" r="4" fill="none"/>
+        </svg>
+    </div>
+    <div class="fixed bottom-3 left-8 z-50 pointer-events-none opacity-70">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a364f" stroke-width="1">
+            <line x1="12" y1="0" x2="12" y2="24"/>
+            <line x1="0" y1="12" x2="24" y2="12"/>
+            <rect x="8" y="8" width="8" height="8" fill="none"/>
+        </svg>
+    </div>
+    <div class="fixed bottom-3 right-3 z-50 pointer-events-none opacity-70">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF8C" stroke-width="1">
+            <line x1="12" y1="0" x2="12" y2="24"/>
+            <line x1="0" y1="12" x2="24" y2="12"/>
+            <circle cx="12" cy="12" r="2" fill="#00FF8C"/>
+        </svg>
+    </div>
+
+    <!-- TOP X-AXIS RULER & EXPORT BAR -->
+    <header class="relative z-40 flex items-center h-8 bg-[#060913]/95 border-b border-[#2a364f] shrink-0 backdrop-blur-md">
+        <div class="w-7 h-full flex items-center justify-center border-r border-[#2a364f] bg-[#060913] text-[#00FF8C] font-bold text-[10px]">
+            [0,0]
+        </div>
+        
+        <!-- Live UTC Clock Stamp in Header -->
+        <div class="px-3 h-full flex items-center border-r border-[#2a364f] bg-[#0a0f1d] text-[11px] font-mono font-bold text-white tracking-wider">
+            <span class="text-[#00FF8C] mr-1.5 animate-pulse">●</span>
+            <span id="header-utc-clock">YYYY-MM-DD HH:MM:SS UTC</span>
+        </div>
+
+        <div class="relative flex-1 h-full overflow-hidden">
+            <canvas id="ruler-x" class="ruler-canvas w-full h-full block"></canvas>
+            <div id="cursor-marker-x" class="absolute top-0 bottom-0 w-[1px] bg-[#00FF8C] pointer-events-none hidden z-10">
+                <span id="coord-label-x" class="absolute top-0 left-1 bg-[#060913] text-[#00FF8C] text-[9px] font-mono px-1 border border-[#00FF8C]/40">X: 0000 PX</span>
+            </div>
+        </div>
+
+        <!-- Enterprise Export PDF Button -->
+        <div class="px-3 h-full flex items-center gap-3 bg-[#060913] border-l border-[#2a364f] text-[10px] tracking-wider">
+            <button id="btn-export-pdf" class="flex items-center gap-1.5 px-2.5 py-1 bg-[#00FF8C]/15 hover:bg-[#00FF8C] text-[#00FF8C] hover:text-[#060913] border border-[#00FF8C]/60 font-mono font-bold transition-all rounded-none shadow-[0_0_10px_rgba(0,255,140,0.2)]">
+                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                <span>[ EXPORT CV (PDF) ]</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN VIEWPORT (LEFT RULER + 3 ZONES) -->
+    <div class="relative z-30 flex flex-1 overflow-hidden">
+        
+        <!-- LEFT Y-AXIS RULER -->
+        <aside class="w-7 bg-[#060913]/95 border-r border-[#2a364f] shrink-0 relative overflow-hidden backdrop-blur-md">
+            <canvas id="ruler-y" class="ruler-canvas w-full h-full block"></canvas>
+            <div id="cursor-marker-y" class="absolute left-0 right-0 h-[1px] bg-[#00FF8C] pointer-events-none hidden z-10">
+                <span id="coord-label-y" class="absolute top-1 left-0 bg-[#060913] text-[#00FF8C] text-[9px] font-mono px-0.5 border border-[#00FF8C]/40 writing-mode-vertical">0000 PX</span>
+            </div>
+        </aside>
+
+        <!-- ZONE 1: LEFT SIDEBAR (Technical Telemetry, Profile & Contacts) -->
+        <aside class="w-80 border-r border-[#2a364f] bg-[#060913]/90 flex flex-col justify-between shrink-0 relative backdrop-blur-md z-20">
+            <div class="hud-corner hud-tr"></div>
+            <div class="hud-corner hud-br"></div>
+
+            <div class="p-4 flex flex-col gap-4 overflow-y-auto font-mono">
+                <!-- Architect Profile Box -->
+                <div class="border border-[#2a364f] bg-[#0a0f1d] p-3 relative rounded-none">
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-br"></div>
+                    <div class="flex justify-between items-center border-b border-[#2a364f]/60 pb-2 mb-2">
+                        <span class="text-[10px] tracking-widest text-blueprint-text uppercase">LEAD ARCHITECT</span>
+                        <span class="text-[9px] px-1.5 py-0.5 bg-[#2a364f]/40 text-white font-semibold">ID: YB-2026</span>
+                    </div>
+                    <h1 class="text-base font-bold text-white tracking-wide uppercase">Yauheni Buka</h1>
+                    <p class="text-[11px] text-sentinel mt-0.5">Lead UI/UX Engineer & Frontend Architect</p>
+
+                    <!-- Personal Metadata & Clickable Contact Links with Hover Glowing Icons -->
+                    <div class="mt-3 pt-2.5 border-t border-[#2a364f]/60 flex flex-col gap-2 text-[10px]">
+                        <a href="mailto:yauhenibuka.work@proton.me" 
+                           class="flex items-center gap-2.5 text-blueprint-light hover:text-[#00FF8C] transition-all group/link bg-[#060913]/60 p-1.5 border border-[#2a364f]/40 hover:border-[#00FF8C]/60 hover:shadow-[0_0_12px_rgba(0,255,140,0.25)]">
+                            <svg class="w-4 h-4 text-sentinel shrink-0 transition-transform group-hover/link:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="truncate">yauhenibuka.work@proton.me</span>
+                        </a>
+                        <a href="https://github.com/slading" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center gap-2.5 text-blueprint-light hover:text-[#3B82F6] transition-all group/link bg-[#060913]/60 p-1.5 border border-[#2a364f]/40 hover:border-[#3B82F6]/60 hover:shadow-[0_0_12px_rgba(59,130,246,0.25)]">
+                            <svg class="w-4 h-4 text-repolens shrink-0 fill-current transition-transform group-hover/link:scale-110" viewBox="0 0 24 24">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                            <span class="truncate">github.com/slading [↗]</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Runtime Telemetry Engine Box -->
+                <div class="border border-[#2a364f] bg-[#0a0f1d]/80 p-3 flex flex-col gap-2.5 rounded-none shadow-lg">
+                    <div class="flex justify-between items-center text-[10px] border-b border-[#2a364f]/60 pb-1.5">
+                        <span class="text-white uppercase font-bold">RUNTIME TELEMETRY</span>
+                        <span class="text-[#00FF8C] animate-pulse text-[9px]">● 2.0S POLLING</span>
+                    </div>
+
+                    <div class="space-y-2 text-[11px]">
+                        <div class="flex justify-between items-center border-b border-[#2a364f]/30 pb-1">
+                            <span class="text-blueprint-text">LATENCY :</span>
+                            <span id="metric-latency" class="text-[#00FF8C] font-bold font-mono">14.2ms</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-[#2a364f]/30 pb-1">
+                            <span class="text-blueprint-text">THROUGHPUT :</span>
+                            <span id="metric-throughput" class="text-[#3B82F6] font-bold font-mono">94.2k req/s</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-[#2a364f]/30 pb-1">
+                            <span class="text-blueprint-text">UPTIME :</span>
+                            <span id="metric-uptime" class="text-white font-bold font-mono">99.998%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blueprint-text">BLOCK HASH :</span>
+                            <span id="metric-hash" class="text-sentinel font-mono text-[10px]">0x7F4A...3B9C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cursor & Viewport Dynamic Tracking -->
+                <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 rounded-none">
+                    <div class="text-[10px] text-blueprint-text uppercase mb-2 font-mono">AXES COORDINATES</div>
+                    <div class="space-y-2 text-[11px] font-mono">
+                        <div class="flex justify-between border-b border-[#2a364f]/40 pb-1">
+                            <span>CURSOR POS X :</span>
+                            <span id="telemetry-x" class="text-sentinel font-bold">0.0 PX</span>
+                        </div>
+                        <div class="flex justify-between border-b border-[#2a364f]/40 pb-1">
+                            <span>CURSOR POS Y :</span>
+                            <span id="telemetry-y" class="text-sentinel font-bold">0.0 PX</span>
+                        </div>
+                        <div class="flex justify-between border-b border-[#2a364f]/40 pb-1">
+                            <span>CANVAS SCALE :</span>
+                            <span id="telemetry-scale" class="text-repolens font-bold">0.850x [85%]</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>PAN COORD :</span>
+                            <span id="telemetry-pan" class="text-white font-mono">[0, 0]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Thread Allocation Simulation -->
+                <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 rounded-none">
+                    <div class="text-[10px] text-blueprint-text uppercase mb-2 font-mono">SYSTEM THREADS ALLOCATION</div>
+                    <div class="space-y-2.5 font-mono">
+                        <div>
+                            <div class="flex justify-between text-[10px] mb-1">
+                                <span>ARCHITECTURE KERNEL</span>
+                                <span class="text-sentinel font-bold">98.4%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-[#060913] border border-[#2a364f]">
+                                <div class="h-full bg-sentinel w-[98.4%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[10px] mb-1">
+                                <span>AST TELEMETRY THREAD</span>
+                                <span class="text-repolens font-bold">96.8%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-[#060913] border border-[#2a364f]">
+                                <div class="h-full bg-repolens w-[96.8%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-[#2a364f] bg-[#0a0f1d] text-[10px] flex justify-between items-center text-blueprint-text font-mono">
+                <span>STATUS: <strong class="text-sentinel">READY</strong></span>
+                <span id="epoch-time" class="hidden">0000000000</span>
+                <span>REV.2026.07</span>
+            </div>
+        </aside>
+
+        <!-- ZONE 2: CENTRAL CANVAS (Blueprint Canvas with Interactive Pan/Zoom) -->
+        <main id="blueprint-canvas" class="canvas-container flex-1 relative overflow-hidden flex items-center justify-center bg-transparent">
+            
+            <!-- Floating Canvas HUD Controls -->
+            <div class="absolute top-4 left-4 z-40 flex items-center gap-2 bg-[#060913]/90 border border-[#2a364f] p-1.5 backdrop-blur-md rounded-none shadow-xl text-[10px] font-mono">
+                <button id="btn-zoom-in" class="px-2.5 py-1 bg-[#2a364f]/40 hover:bg-[#00FF8C]/20 hover:text-[#00FF8C] border border-transparent hover:border-[#00FF8C]/50 transition-all text-white font-bold rounded-none">+ ZOOM</button>
+                <button id="btn-zoom-out" class="px-2.5 py-1 bg-[#2a364f]/40 hover:bg-[#00FF8C]/20 hover:text-[#00FF8C] border border-transparent hover:border-[#00FF8C]/50 transition-all text-white font-bold rounded-none">- ZOOM</button>
+                <button id="btn-reset-view" class="px-3 py-1 bg-[#2a364f]/60 hover:bg-[#3B82F6]/20 hover:text-[#3B82F6] border border-[#2a364f] hover:border-[#3B82F6] transition-all text-blueprint-light font-bold rounded-none">[ 1:1 RESET ]</button>
+                <span class="h-4 w-[1px] bg-[#2a364f] mx-1"></span>
+                <span class="text-blueprint-text px-1">DRAG TO PAN CANVAS</span>
+            </div>
+
+            <!-- Dynamic SVG Connection Layer -->
+            <svg id="svg-layer" class="absolute inset-0 w-full h-full pointer-events-none z-10">
+                <defs>
+                    <linearGradient id="grad-sentinel" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#2a364f" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#00FF8C" stop-opacity="0.95"/>
+                    </linearGradient>
+                    <linearGradient id="grad-repolens" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#2a364f" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.95"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Static Base Connector Traces -->
+                <path id="line-sentinel-base" d="" fill="none" stroke="url(#grad-sentinel)" stroke-width="1.5" stroke-opacity="0.5" />
+                <path id="line-repolens-base" d="" fill="none" stroke="url(#grad-repolens)" stroke-width="1.5" stroke-opacity="0.5" />
+
+                <!-- Animated Running Dots Connectors -->
+                <path id="line-sentinel-anim" d="" fill="none" stroke="#00FF8C" stroke-width="2" class="animated-connector-sentinel" />
+                <path id="line-repolens-anim" d="" fill="none" stroke="#3B82F6" stroke-width="2" class="animated-connector-repolens" />
+                
+                <!-- Joint Circles at connection anchors -->
+                <circle id="joint-center" cx="0" cy="0" r="5" fill="#060913" stroke="#8b9bb4" stroke-width="2"/>
+                <circle id="joint-sentinel" cx="0" cy="0" r="5" fill="#060913" stroke="#00FF8C" stroke-width="2"/>
+                <circle id="joint-repolens" cx="0" cy="0" r="5" fill="#060913" stroke="#3B82F6" stroke-width="2"/>
+            </svg>
+
+            <!-- TRANSFORM WRAPPER (Panned and Scaled via JS) -->
+            <div id="canvas-content" class="absolute inset-0 flex items-center justify-center pointer-events-auto transition-transform duration-75 ease-out">
+
+                <!-- CENTRAL ROOT NODE: Yauheni Buka Architectural Composition -->
+                <div id="node-center" class="project-card absolute z-30 border-2 border-[#2a364f] bg-[#060913]/95 p-5 w-80 shadow-2xl backdrop-blur-md rounded-none top-[120px] overflow-hidden">
+                    <div class="laser-scan-beam bg-gradient-to-b from-transparent via-[#8b9bb4]/30 to-transparent"></div>
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="hud-corner hud-bl"></div>
+                    <div class="hud-corner hud-br"></div>
+                    
+                    <div class="flex items-center justify-between border-b border-[#2a364f] pb-2 mb-3">
+                        <span class="text-[10px] text-sentinel font-mono uppercase tracking-wider font-bold">[ CORE ROOT // 0,0 ]</span>
+                        <span class="flex items-center gap-1 text-[9px] text-blueprint-text font-mono">
+                            <span class="w-2 h-2 rounded-none bg-sentinel inline-block animate-ping"></span> CALIBRATED
+                        </span>
+                    </div>
+                    <h2 class="text-sm font-bold text-white tracking-wide uppercase font-mono">Yauheni Buka</h2>
+                    <div class="text-[11px] text-blueprint-light mt-0.5 font-semibold font-mono">Architectural Composition</div>
+                    
+                    <p class="text-[10px] text-blueprint-text mt-3 leading-relaxed border-l-2 border-[#2a364f] pl-2.5 font-mono">
+                        High-precision architectural blueprint interface connecting real-time telemetry, AI threat mitigation, and AST code visualization layers.
+                    </p>
+
+                    <div class="mt-4 pt-2 border-t border-[#2a364f]/60 flex justify-between text-[9px] text-blueprint-text font-mono">
+                        <span>SYS_REF: CORE_COMPOSITION</span>
+                        <span>SCALE: 1:1</span>
+                    </div>
+                </div>
+
+                <!-- NODE 01: SENTINELAI (RegTech & Compliance Layer) - Left Side -->
+                <article id="node-sentinel" class="project-card absolute z-30 border border-[#00FF8C]/70 bg-[#060913]/95 p-5 w-[520px] backdrop-blur-md rounded-none sentinel-node-shadow left-[-560px] top-[40px] overflow-hidden">
+                    <div class="laser-scan-beam bg-gradient-to-b from-transparent via-[#00FF8C]/35 to-transparent"></div>
+                    <div class="hud-corner hud-tl !border-[#00FF8C] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-tr !border-[#00FF8C] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-bl !border-[#00FF8C] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-br !border-[#00FF8C] !w-4 !h-4"></div>
+
+                    <div class="flex items-center justify-between border-b border-[#00FF8C]/40 pb-2.5 mb-4">
+                        <div class="flex items-center gap-2 font-mono">
+                            <span class="w-2.5 h-2.5 bg-[#00FF8C] inline-block rounded-none shrink-0"></span>
+                            <span class="text-xs text-[#00FF8C] font-bold tracking-wider">SYS_REF: NODE_01 // SENTINELAI</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-[9px] font-mono">
+                            <span class="text-blueprint-text">SCALE: 1:1</span>
+                            <span class="px-1.5 py-0.5 bg-[#00FF8C]/20 text-[#00FF8C] border border-[#00FF8C]/60 uppercase font-bold">CALIBRATION: [OK]</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-base font-bold text-white uppercase tracking-wide font-mono">RegTech &amp; Compliance Layer</h3>
+                        <p class="text-[10px] text-blueprint-light mt-1 font-mono">Autonomous AI-driven transaction surveillance &amp; deterministic fraud detection pipeline.</p>
+                    </div>
+
+                    <!-- ACTION BUTTONS BAR: LIVE DEMO & SOURCE CODE (Blueprint Markers Style) -->
+                    <div class="grid grid-cols-2 gap-2.5 mb-4 font-mono">
+                        <a href="https://sentinel-ai-ten-nu.vercel.app/" target="_blank" rel="noopener noreferrer"
+                           class="blueprint-btn border border-[#00FF8C] bg-[#00FF8C]/10 text-[#00FF8C] hover:bg-[#00FF8C] hover:text-[#060913] hover:shadow-[0_0_20px_rgba(0,255,140,0.65)]">
+                            <span>[ LIVE DEMO ↗ ]</span>
+                        </a>
+                        <a href="https://github.com/slading/SentinelAI" target="_blank" rel="noopener noreferrer"
+                           class="blueprint-btn border border-[#00FF8C]/60 bg-[#060913] text-white hover:bg-[#00FF8C] hover:text-[#060913] hover:border-[#00FF8C] hover:shadow-[0_0_20px_rgba(0,255,140,0.65)]">
+                            <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            <span>SOURCE CODE</span>
+                        </a>
+                    </div>
+
+                    <!-- Screenshot Container with Targeting Grid Overlay -->
+                    <div class="relative w-full h-60 bg-[#0a0f1d] border border-[#00FF8C]/60 overflow-hidden mb-4 rounded-none group">
+                        <img src="images/sentinel.png" onerror="this.onerror=null;this.src='image.png';" alt="SentinelAI Compliance Dashboard Screenshot" 
+                             class="w-full h-full object-cover grayscale-[25%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-700 block">
+                        
+                        <div class="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-3 bg-gradient-to-t from-[#060913]/90 via-transparent to-[#060913]/60">
+                            <div class="flex justify-between items-center text-[9px] font-mono text-[#00FF8C]">
+                                <span class="bg-[#060913]/80 px-1.5 py-0.5 border border-[#00FF8C]/40">[TARGET_LOCK: FRAUD_HEURISTICS]</span>
+                                <span class="animate-pulse">● RADAR ACTIVE</span>
+                            </div>
+
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <div class="w-24 h-24 border border-[#00FF8C]/50 rounded-full flex items-center justify-center relative">
+                                    <div class="w-16 h-16 border border-dashed border-[#00FF8C]/40 rounded-full"></div>
+                                    <div class="absolute w-full h-[1px] bg-[#00FF8C]/60"></div>
+                                    <div class="absolute h-full w-[1px] bg-[#00FF8C]/60"></div>
+                                    <div class="absolute -top-1 left-1/2 -translate-x-1/2 text-[8px] text-[#00FF8C] font-mono bg-[#060913] px-1">00° N</div>
+                                </div>
+                            </div>
+
+                            <div class="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF8C] to-transparent shadow-[0_0_8px_#00FF8C] animate-target-scan"></div>
+                            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,255,140,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,255,140,0.07)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+
+                            <div class="flex justify-between items-end text-[8px] font-mono text-blueprint-light z-20">
+                                <div class="bg-[#060913]/80 px-1.5 py-1 border border-[#00FF8C]/40">
+                                    LAT: 52.2297° N // LON: 21.0122° E<br>
+                                    GEO_DISTANCE: HAVERSINE ENGINE
+                                </div>
+                                <div class="bg-[#00FF8C]/20 text-[#00FF8C] font-bold px-2 py-1 border border-[#00FF8C]/60">
+                                    INGESTION: >10,000 TPS
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="text-[9px] font-mono text-[#00FF8C] uppercase tracking-wider mb-2">// TECHNICAL STACK SPECIFICATION</div>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                            <span class="px-2 py-1 bg-[#00FF8C]/10 border border-[#00FF8C]/40 text-[#00FF8C] font-bold rounded-none">[ PYTHON ]</span>
+                            <span class="px-2 py-1 bg-[#00FF8C]/10 border border-[#00FF8C]/40 text-[#00FF8C] font-bold rounded-none">[ FASTAPI ]</span>
+                            <span class="px-2 py-1 bg-[#00FF8C]/10 border border-[#00FF8C]/40 text-[#00FF8C] font-bold rounded-none">[ PANDAS ]</span>
+                            <span class="px-2 py-1 bg-[#00FF8C]/10 border border-[#00FF8C]/40 text-[#00FF8C] font-bold rounded-none">[ PYDANTIC V2 ]</span>
+                            <span class="px-2 py-1 bg-[#00FF8C]/10 border border-[#00FF8C]/40 text-[#00FF8C] font-bold rounded-none">[ GROQ API ]</span>
+                            <span class="px-2 py-1 bg-[#00FF8C]/10 border border-[#00FF8C]/40 text-[#00FF8C] font-bold rounded-none">[ DOCKER ]</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#0a0f1d] border border-[#2a364f] p-3 rounded-none font-mono text-[10px]">
+                        <div class="text-white font-bold border-b border-[#2a364f] pb-1.5 mb-2 flex justify-between items-center">
+                            <span>// CORE EXECUTION LOGIC</span>
+                            <span class="text-[#00FF8C] text-[9px]">[DETERMINISTIC]</span>
+                        </div>
+                        <ul class="space-y-1.5 text-blueprint-text leading-relaxed">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00FF8C] font-bold mt-0.5">&gt;</span>
+                                <span><strong class="text-white">Multi-hop transaction ingestion:</strong> Real-time streaming graph ingestion analyzing complex transaction laundering paths across multi-tiered entities.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00FF8C] font-bold mt-0.5">&gt;</span>
+                                <span><strong class="text-white">Fraud heuristics &amp; Haversine geo-distance:</strong> Algorithmic spatial velocity verification flagging anomalous cross-border transaction vectors in milliseconds.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#00FF8C] font-bold mt-0.5">&gt;</span>
+                                <span><strong class="text-white">Deterministic JSON execution schemas:</strong> Strict type validation and guaranteed output structure integrity enforced via Pydantic v2 runtime contracts.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4 pt-2.5 border-t border-[#00FF8C]/30 flex justify-between items-center text-[9px] font-mono text-blueprint-text">
+                        <span>THREAD_ID: REGTECH_01</span>
+                        <span class="text-[#00FF8C] font-bold">LATENCY: 0.14ms // STATUS: ONLINE</span>
+                    </div>
+                </article>
+
+                <!-- NODE 02: REPOLENS (AI-Powered Repository Analyzer) - Right Side -->
+                <article id="node-repolens" class="project-card absolute z-30 border border-[#3B82F6]/70 bg-[#060913]/95 p-5 w-[520px] backdrop-blur-md rounded-none repolens-node-shadow right-[-560px] top-[40px] overflow-hidden">
+                    <div class="laser-scan-beam bg-gradient-to-b from-transparent via-[#3B82F6]/35 to-transparent"></div>
+                    <div class="hud-corner hud-tl !border-[#3B82F6] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-tr !border-[#3B82F6] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-bl !border-[#3B82F6] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-br !border-[#3B82F6] !w-4 !h-4"></div>
+
+                    <div class="flex items-center justify-between border-b border-[#3B82F6]/40 pb-2.5 mb-4">
+                        <div class="flex items-center gap-2 font-mono">
+                            <span class="w-2.5 h-2.5 bg-[#3B82F6] inline-block rounded-none shrink-0"></span>
+                            <span class="text-xs text-[#3B82F6] font-bold tracking-wider">SYS_REF: NODE_02 // REPOLENS</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-[9px] font-mono">
+                            <span class="text-blueprint-text">SCALE: 1:1</span>
+                            <span class="px-1.5 py-0.5 bg-[#3B82F6]/20 text-[#3B82F6] border border-[#3B82F6]/60 uppercase font-bold">CALIBRATION: [OK]</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 flex flex-col gap-2">
+                        <div>
+                            <h3 class="text-base font-bold text-white uppercase tracking-wide font-mono">AI-Powered Repository Analyzer</h3>
+                            <p class="text-[10px] text-blueprint-light mt-1 font-mono">Deep AST architectural visualization and multi-provider code synthesis engine.</p>
+                        </div>
+                    </div>
+
+                    <!-- ACTION BUTTONS BAR: LIVE DEMO & SOURCE CODE (Blueprint Markers Style) -->
+                    <div class="grid grid-cols-2 gap-2.5 mb-4 font-mono">
+                        <a href="https://repo-lens-ai-powered-repository-ana.vercel.app/" target="_blank" rel="noopener noreferrer"
+                           class="blueprint-btn border border-[#3B82F6] bg-[#3B82F6]/15 text-[#3B82F6] hover:bg-[#3B82F6] hover:text-[#060913] hover:shadow-[0_0_20px_rgba(59,130,246,0.65)]">
+                            <span>[ LIVE DEMO ↗ ]</span>
+                        </a>
+                        <a href="https://github.com/slading/RepoLens-AI-powered-repository-analyzer" target="_blank" rel="noopener noreferrer"
+                           class="blueprint-btn border border-[#3B82F6]/60 bg-[#060913] text-white hover:bg-[#3B82F6] hover:text-[#060913] hover:border-[#3B82F6] hover:shadow-[0_0_20px_rgba(59,130,246,0.65)]">
+                            <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            <span>SOURCE CODE</span>
+                        </a>
+                    </div>
+
+                    <!-- Screenshot Container with Neon Contour -->
+                    <div class="relative w-full h-60 bg-[#0a0f1d] border-2 border-[#3B82F6]/60 overflow-hidden mb-4 rounded-none neon-repolens-box group">
+                        <img src="images/repolens.png" onerror="this.onerror=null;this.src='image.png';" alt="RepoLens Repository Analyzer Screenshot" 
+                             class="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 block">
+                        
+                        <div class="absolute top-2 left-2 right-2 flex justify-between items-center pointer-events-none z-10">
+                            <span class="bg-[#060913]/90 text-[#3B82F6] text-[8px] font-mono px-2 py-0.5 border border-[#3B82F6]/60 font-bold">
+                                AST_GRAPH: PARSED // 1.4M LOC
+                            </span>
+                            <span class="bg-[#3B82F6] text-[#060913] font-mono text-[8px] font-bold px-2 py-0.5 uppercase tracking-wide">
+                                STREAMING SSE
+                            </span>
+                        </div>
+
+                        <div class="absolute inset-0 pointer-events-none border border-[#3B82F6] opacity-30 group-hover:opacity-100 transition-opacity shadow-[inset_0_0_20px_rgba(59,130,246,0.4)]"></div>
+
+                        <div class="absolute bottom-0 inset-x-0 bg-[#060913]/90 border-t border-[#3B82F6]/50 p-2 flex justify-between items-center text-[9px] font-mono text-blueprint-light z-10">
+                            <span>CHUNK_MAP: MAP-REDUCE STRATEGY</span>
+                            <span class="text-[#3B82F6] font-bold">TOKENS: -60% SAVED</span>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack Specification Pills -->
+                    <div class="mb-4">
+                        <div class="text-[9px] font-mono text-[#3B82F6] uppercase tracking-wider mb-2">// TECHNICAL STACK SPECIFICATION</div>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                            <span class="px-2 py-1 bg-[#3B82F6]/10 border border-[#3B82F6]/40 text-[#3B82F6] font-bold rounded-none">[ NEXT.JS (NODE:20) ]</span>
+                            <span class="px-2 py-1 bg-[#3B82F6]/10 border border-[#3B82F6]/40 text-[#3B82F6] font-bold rounded-none">[ TYPESCRIPT ]</span>
+                            <span class="px-2 py-1 bg-[#3B82F6]/10 border border-[#3B82F6]/40 text-[#3B82F6] font-bold rounded-none">[ ZOD ]</span>
+                            <span class="px-2 py-1 bg-[#3B82F6]/10 border border-[#3B82F6]/40 text-[#3B82F6] font-bold rounded-none">[ TIKTOKEN ]</span>
+                            <span class="px-2 py-1 bg-[#3B82F6]/10 border border-[#3B82F6]/40 text-[#3B82F6] font-bold rounded-none">[ CRYPTO-JS AES-256 ]</span>
+                        </div>
+                    </div>
+
+                    <!-- Structured Matrix of Specifications -->
+                    <div class="bg-[#0a0f1d] border border-[#2a364f] p-3 rounded-none font-mono">
+                        <div class="text-white font-bold text-[10px] border-b border-[#2a364f] pb-1.5 mb-2.5 flex justify-between items-center">
+                            <span>// STRUCTURED MATRIX OF SPECIFICATIONS</span>
+                            <span class="text-[#3B82F6] text-[9px]">[v4.2 CORE]</span>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 text-[10px]">
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#3B82F6] font-bold">[01]</span> Smart Context Optimization:
+                                </span>
+                                <span class="text-[#3B82F6] font-bold text-right">-60% token overhead via AST pruning</span>
+                            </div>
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#3B82F6] font-bold">[02]</span> Chunking Architecture:
+                                </span>
+                                <span class="text-blueprint-light text-right">3 strategies via Map-Reduce engine</span>
+                            </div>
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#3B82F6] font-bold">[03]</span> Multi-Provider Core:
+                                </span>
+                                <span class="text-blueprint-light text-right">OpenAI, Anthropic, Groq &amp; Local models</span>
+                            </div>
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#3B82F6] font-bold">[04]</span> SSE Streaming Protocol:
+                                </span>
+                                <span class="text-[#3B82F6] font-bold text-right">Real-time Server-Sent Events telemetry</span>
+                            </div>
+                            <div class="flex items-start justify-between">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#3B82F6] font-bold">[05]</span> Client-Side Cryptography:
+                                </span>
+                                <span class="text-blueprint-light text-right">AES-256 local API key encryption</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-2.5 border-t border-[#3B82F6]/30 flex justify-between items-center text-[9px] font-mono text-blueprint-text">
+                        <span>THREAD_ID: REPOLENS_AST</span>
+                        <span class="text-[#3B82F6] font-bold">STREAM: ACTIVE // STATUS: ONLINE</span>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="absolute bottom-4 left-4 z-40 bg-[#060913]/90 border border-[#2a364f] px-3 py-1.5 text-[10px] text-blueprint-text flex items-center gap-3 backdrop-blur-md rounded-none font-mono">
+                <span>VIEWPORT: <strong id="stamp-coord" class="text-white">CENTERED [0, 0]</strong></span>
+                <span class="text-[#2a364f]">|</span>
+                <span>DATA STREAMS: <strong class="text-sentinel">RUNNING DOTS SYNCED</strong></span>
+            </div>
+        </main>
+
+        <!-- ZONE 3: RIGHT SIDEBAR -->
+        <aside class="w-80 border-l border-[#2a364f] bg-[#060913]/90 flex flex-col justify-between shrink-0 relative backdrop-blur-md z-20">
+            <div class="hud-corner hud-tl"></div>
+            <div class="hud-corner hud-bl"></div>
+
+            <div class="p-4 flex flex-col gap-4 overflow-y-auto font-mono">
+                <div class="border-b border-[#2a364f] pb-3">
+                    <div class="text-[10px] text-sentinel uppercase tracking-widest font-bold">SPECIFICATION v4.8</div>
+                    <h2 class="text-sm font-bold text-white mt-1 uppercase">Core Capabilities</h2>
+                    <p class="text-[10px] text-blueprint-text mt-1">
+                        Enterprise engineering standards implemented across distributed high-concurrency web ecosystems.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 hover:border-sentinel/60 transition-colors rounded-none">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-sentinel inline-block shrink-0 rounded-none"></span>
+                                <h3 class="text-xs font-bold text-white uppercase">RegTech Architecture</h3>
+                            </div>
+                            <span class="text-[9px] font-mono text-sentinel">[MOD-01]</span>
+                        </div>
+                        <p class="text-[10px] text-blueprint-text mt-2 leading-relaxed">
+                            Deterministic high-throughput financial compliance workflows and zero-latency threat assessment systems.
+                        </p>
+                    </div>
+
+                    <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 hover:border-repolens/60 transition-colors rounded-none">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-repolens inline-block shrink-0 rounded-none"></span>
+                                <h3 class="text-xs font-bold text-white uppercase">AI &amp; LLM Engineering</h3>
+                            </div>
+                            <span class="text-[9px] font-mono text-repolens">[MOD-02]</span>
+                        </div>
+                        <p class="text-[10px] text-blueprint-text mt-2 leading-relaxed">
+                            AST codebase parsing, multi-strategy chunking, and SSE real-time streaming integration with client-side encryption.
+                        </p>
+                    </div>
+
+                    <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 hover:border-blueprint-light/60 transition-colors rounded-none">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-blueprint-light inline-block shrink-0 rounded-none"></span>
+                                <h3 class="text-xs font-bold text-white uppercase">Sci-Fi UI/UX CAD Design</h3>
+                            </div>
+                            <span class="text-[9px] font-mono text-blueprint-light">[MOD-03]</span>
+                        </div>
+                        <p class="text-[10px] text-blueprint-text mt-2 leading-relaxed">
+                            Hardware-accelerated DOM rendering, interactive CAD grid matrices, and strict technical blueprints.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-[#2a364f] bg-[#060913] p-2.5 font-mono text-[9px] text-blueprint-text rounded-none">
+                    <div class="text-white border-b border-[#2a364f]/60 pb-1 mb-1.5 flex justify-between">
+                        <span>TERMINAL CONSOLE</span>
+                        <span class="text-sentinel">EXEC</span>
+                    </div>
+                    <div class="space-y-1">
+                        <div><span class="text-sentinel">&gt;</span> SentinelAI node linked... <span class="text-[#00FF8C]">ONLINE</span></div>
+                        <div><span class="text-sentinel">&gt;</span> RepoLens AST telemetry... <span class="text-[#3B82F6]">CONNECTED</span></div>
+                        <div><span class="text-sentinel">&gt;</span> Running dots vector path... <span class="text-white">100% SYNC</span></div>
+                        <div class="animate-pulse text-white">&gt; Interactive Pan/Zoom Ready_</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 border-t border-[#2a364f] bg-[#0a0f1d] text-[10px] flex justify-between items-center text-blueprint-text font-mono">
+                <span>ENC: <strong class="text-white">UTF-8 / W3C</strong></span>
+                <span class="text-sentinel font-bold">MODULAR ARCH // COMPLETE</span>
+            </div>
+        </aside>
+
+    </div>
+</body>
+</html>
