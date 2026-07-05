@@ -85,6 +85,10 @@ body {
     stroke-dasharray: 6, 8;
     animation: dash-flow 1.2s linear infinite;
 }
+.animated-connector-orchestrator {
+    stroke-dasharray: 6, 8;
+    animation: dash-flow 1.2s linear infinite;
+}
 
 /* Target Overlay Scanning Line Animation */
 @keyframes target-scan {
@@ -152,6 +156,9 @@ body {
 }
 .repolens-node-shadow {
     box-shadow: 0 0 28px rgba(59, 130, 246, 0.18);
+}
+.orchestrator-node-shadow {
+    box-shadow: 0 0 28px rgba(255, 184, 0, 0.18);
 }
 
 /* Canvas Pan & Drag Cursor */
@@ -223,7 +230,8 @@ body {
 
     #node-center,
     #node-sentinel,
-    #node-repolens {
+    #node-repolens,
+    #node-orchestrator {
         position: relative !important;
         top: auto !important;
         left: auto !important;
@@ -241,7 +249,8 @@ body {
 
     #node-center *,
     #node-sentinel *,
-    #node-repolens * {
+    #node-repolens *,
+    #node-orchestrator * {
         color: #000000 !important;
         border-color: #555555 !important;
     }
@@ -254,7 +263,8 @@ body {
     }
 
     #node-sentinel img,
-    #node-repolens img {
+    #node-repolens img,
+    #node-orchestrator img {
         filter: grayscale(100%) !important;
         max-height: 180px !important;
         width: auto !important;
