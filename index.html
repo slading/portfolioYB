@@ -36,6 +36,11 @@
                             DEFAULT: '#3B82F6',
                             glow: 'rgba(59, 130, 246, 0.25)',
                             dim: 'rgba(59, 130, 246, 0.1)'
+                        },
+                        orchestrator: {
+                            DEFAULT: '#FFB800',
+                            glow: 'rgba(255, 184, 0, 0.25)',
+                            dim: 'rgba(255, 184, 0, 0.1)'
                         }
                     },
                     fontFamily: {
@@ -65,7 +70,7 @@
             </div>
             <div class="flex justify-between text-gray-700">
                 <span>ID: YB-ARCH-2026</span>
-                <span>DOM/AST Telemetry &amp; Compliance Engineering</span>
+                <span>DOM/AST Telemetry &amp; Agentic AI Orchestration</span>
             </div>
         </div>
     </div>
@@ -89,7 +94,7 @@
         </svg>
     </div>
     <div class="fixed bottom-3 left-8 z-50 pointer-events-none opacity-70">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a364f" stroke-width="1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1">
             <line x1="12" y1="0" x2="12" y2="24"/>
             <line x1="0" y1="12" x2="24" y2="12"/>
             <rect x="8" y="8" width="8" height="8" fill="none"/>
@@ -223,11 +228,11 @@
                         </div>
                         <div class="flex justify-between border-b border-[#2a364f]/40 pb-1">
                             <span>CANVAS SCALE :</span>
-                            <span id="telemetry-scale" class="text-repolens font-bold">0.850x [85%]</span>
+                            <span id="telemetry-scale" class="text-repolens font-bold">0.650x [65%]</span>
                         </div>
                         <div class="flex justify-between">
                             <span>PAN COORD :</span>
-                            <span id="telemetry-pan" class="text-white font-mono">[0, 0]</span>
+                            <span id="telemetry-pan" class="text-white font-mono">[0, -80]</span>
                         </div>
                     </div>
                 </div>
@@ -238,7 +243,7 @@
                     <div class="space-y-2.5 font-mono">
                         <div>
                             <div class="flex justify-between text-[10px] mb-1">
-                                <span>ARCHITECTURE KERNEL</span>
+                                <span>REGTECH COMPLIANCE THREAD</span>
                                 <span class="text-sentinel font-bold">98.4%</span>
                             </div>
                             <div class="w-full h-1.5 bg-[#060913] border border-[#2a364f]">
@@ -247,11 +252,20 @@
                         </div>
                         <div>
                             <div class="flex justify-between text-[10px] mb-1">
-                                <span>AST TELEMETRY THREAD</span>
+                                <span>AST REPOLENS THREAD</span>
                                 <span class="text-repolens font-bold">96.8%</span>
                             </div>
                             <div class="w-full h-1.5 bg-[#060913] border border-[#2a364f]">
                                 <div class="h-full bg-repolens w-[96.8%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[10px] mb-1">
+                                <span>FINOPS ORCHESTRATOR THREAD</span>
+                                <span class="text-[#FFB800] font-bold">97.2%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-[#060913] border border-[#2a364f]">
+                                <div class="h-full bg-[#FFB800] w-[97.2%]"></div>
                             </div>
                         </div>
                     </div>
@@ -288,20 +302,27 @@
                         <stop offset="0%" stop-color="#2a364f" stop-opacity="0.8"/>
                         <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.95"/>
                     </linearGradient>
+                    <linearGradient id="grad-orchestrator" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#2a364f" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#FFB800" stop-opacity="0.95"/>
+                    </linearGradient>
                 </defs>
 
                 <!-- Static Base Connector Traces -->
                 <path id="line-sentinel-base" d="" fill="none" stroke="url(#grad-sentinel)" stroke-width="1.5" stroke-opacity="0.5" />
                 <path id="line-repolens-base" d="" fill="none" stroke="url(#grad-repolens)" stroke-width="1.5" stroke-opacity="0.5" />
+                <path id="line-orchestrator-base" d="" fill="none" stroke="url(#grad-orchestrator)" stroke-width="1.5" stroke-opacity="0.5" />
 
                 <!-- Animated Running Dots Connectors -->
                 <path id="line-sentinel-anim" d="" fill="none" stroke="#00FF8C" stroke-width="2" class="animated-connector-sentinel" />
                 <path id="line-repolens-anim" d="" fill="none" stroke="#3B82F6" stroke-width="2" class="animated-connector-repolens" />
+                <path id="line-orchestrator-anim" d="" fill="none" stroke="#FFB800" stroke-width="2" class="animated-connector-orchestrator" />
                 
                 <!-- Joint Circles at connection anchors -->
                 <circle id="joint-center" cx="0" cy="0" r="5" fill="#060913" stroke="#8b9bb4" stroke-width="2"/>
                 <circle id="joint-sentinel" cx="0" cy="0" r="5" fill="#060913" stroke="#00FF8C" stroke-width="2"/>
                 <circle id="joint-repolens" cx="0" cy="0" r="5" fill="#060913" stroke="#3B82F6" stroke-width="2"/>
+                <circle id="joint-orchestrator" cx="0" cy="0" r="5" fill="#060913" stroke="#FFB800" stroke-width="2"/>
             </svg>
 
             <!-- TRANSFORM WRAPPER (Panned and Scaled via JS) -->
@@ -325,7 +346,7 @@
                     <div class="text-[11px] text-blueprint-light mt-0.5 font-semibold font-mono">Automation &amp; AI Analyst</div>
                     
                     <p class="text-[10px] text-blueprint-text mt-3 leading-relaxed border-l-2 border-[#2a364f] pl-2.5 font-mono">
-                        High-precision architectural blueprint interface connecting real-time telemetry, AI threat mitigation, and AST code visualization layers.
+                        High-precision architectural blueprint interface connecting real-time telemetry, AI threat mitigation, AST code visualization, and Agentic Prompt Orchestration layers.
                     </p>
 
                     <div class="mt-4 pt-2 border-t border-[#2a364f]/60 flex justify-between text-[9px] text-blueprint-text font-mono">
@@ -564,10 +585,121 @@
                     </div>
                 </article>
 
+                <!-- NODE 03: AEGIS ORCHESTRATOR (AI Prompt Orchestrator) - Bottom Center -->
+                <article id="node-orchestrator" class="project-card absolute z-30 border border-[#FFB800]/70 bg-[#060913]/95 p-5 w-[520px] backdrop-blur-md rounded-none orchestrator-node-shadow left-[-100px] top-[480px] overflow-hidden">
+                    <div class="laser-scan-beam bg-gradient-to-b from-transparent via-[#FFB800]/35 to-transparent"></div>
+                    <div class="hud-corner hud-tl !border-[#FFB800] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-tr !border-[#FFB800] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-bl !border-[#FFB800] !w-4 !h-4"></div>
+                    <div class="hud-corner hud-br !border-[#FFB800] !w-4 !h-4"></div>
+
+                    <div class="flex items-center justify-between border-b border-[#FFB800]/40 pb-2.5 mb-4">
+                        <div class="flex items-center gap-2 font-mono">
+                            <span class="w-2.5 h-2.5 bg-[#FFB800] inline-block rounded-none shrink-0"></span>
+                            <span class="text-xs text-[#FFB800] font-bold tracking-wider">SYS_REF: NODE_03 // AEGIS ORCHESTRATOR</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-[9px] font-mono">
+                            <span class="text-blueprint-text">SCALE: 1:1</span>
+                            <span class="px-1.5 py-0.5 bg-[#FFB800]/20 text-[#FFB800] border border-[#FFB800]/60 uppercase font-bold">FINOPS: HTTP 402 GUARD</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-base font-bold text-white uppercase tracking-wide font-mono">AI Prompt Orchestrator</h3>
+                        <p class="text-[10px] text-blueprint-light mt-1 font-mono">Agentic prompt-generation platform turning raw technical intent into production build plans.</p>
+                    </div>
+
+                    <!-- ACTION BUTTONS BAR: LIVE DEMO & SOURCE CODE (Blueprint Markers Style) -->
+                    <div class="grid grid-cols-2 gap-2.5 mb-4 font-mono">
+                        <a href="https://ai-prompt-orchestrator.vercel.app/" target="_blank" rel="noopener noreferrer"
+                           class="blueprint-btn border border-[#FFB800] bg-[#FFB800]/15 text-[#FFB800] hover:bg-[#FFB800] hover:text-[#060913] hover:shadow-[0_0_20px_rgba(255,184,0,0.65)]">
+                            <span>[ LIVE DEMO ↗ ]</span>
+                        </a>
+                        <a href="https://github.com/slading/AI-Prompt-Orchestrator" target="_blank" rel="noopener noreferrer"
+                           class="blueprint-btn border border-[#FFB800]/60 bg-[#060913] text-white hover:bg-[#FFB800] hover:text-[#060913] hover:border-[#FFB800] hover:shadow-[0_0_20px_rgba(255,184,0,0.65)]">
+                            <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                            <span>SOURCE CODE</span>
+                        </a>
+                    </div>
+
+                    <!-- Screenshot Container with Targeting Grid Overlay -->
+                    <div class="relative w-full h-60 bg-[#0a0f1d] border-2 border-[#FFB800]/60 overflow-hidden mb-4 rounded-none group">
+                        <img src="images/orchestrator.png" onerror="this.onerror=null;this.src='image.png';" alt="Aegis AI Prompt Orchestrator Screenshot" 
+                             class="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-700 block">
+                        
+                        <div class="absolute top-2 left-2 right-2 flex justify-between items-center pointer-events-none z-10">
+                            <span class="bg-[#060913]/90 text-[#FFB800] text-[8px] font-mono px-2 py-0.5 border border-[#FFB800]/60 font-bold">
+                                AGENTIC PIPELINE: 3-STAGE
+                            </span>
+                            <span class="bg-[#FFB800] text-[#060913] font-mono text-[8px] font-bold px-2 py-0.5 uppercase tracking-wide">
+                                TOKEN METERED
+                            </span>
+                        </div>
+
+                        <div class="absolute inset-0 pointer-events-none border border-[#FFB800] opacity-30 group-hover:opacity-100 transition-opacity shadow-[inset_0_0_20px_rgba(255,184,0,0.4)]"></div>
+
+                        <div class="absolute bottom-0 inset-x-0 bg-[#060913]/90 border-t border-[#FFB800]/50 p-2 flex justify-between items-center text-[9px] font-mono text-blueprint-light z-10">
+                            <span>LLM: GROQ LLAMA-3.3-70B</span>
+                            <span class="text-[#FFB800] font-bold">FINOPS: ACTIVE GUARD</span>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack Specification Pills -->
+                    <div class="mb-4">
+                        <div class="text-[9px] font-mono text-[#FFB800] uppercase tracking-wider mb-2">// TECHNICAL STACK SPECIFICATION</div>
+                        <div class="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                            <span class="px-2 py-1 bg-[#FFB800]/10 border border-[#FFB800]/40 text-[#FFB800] font-bold rounded-none">[ GROQ LLAMA-3.3-70B ]</span>
+                            <span class="px-2 py-1 bg-[#FFB800]/10 border border-[#FFB800]/40 text-[#FFB800] font-bold rounded-none">[ LLAMA-3.1-8B-INSTANT ]</span>
+                            <span class="px-2 py-1 bg-[#FFB800]/10 border border-[#FFB800]/40 text-[#FFB800] font-bold rounded-none">[ AGENTIC PIPELINE ]</span>
+                            <span class="px-2 py-1 bg-[#FFB800]/10 border border-[#FFB800]/40 text-[#FFB800] font-bold rounded-none">[ FINOPS BUDGET GUARD ]</span>
+                            <span class="px-2 py-1 bg-[#FFB800]/10 border border-[#FFB800]/40 text-[#FFB800] font-bold rounded-none">[ NEXT.JS ]</span>
+                        </div>
+                    </div>
+
+                    <!-- Structured Matrix of Specifications -->
+                    <div class="bg-[#0a0f1d] border border-[#2a364f] p-3 rounded-none font-mono">
+                        <div class="text-white font-bold text-[10px] border-b border-[#2a364f] pb-1.5 mb-2.5 flex justify-between items-center">
+                            <span>// STRICT THREE-STAGE PIPELINE &amp; FINOPS GUARD</span>
+                            <span class="text-[#FFB800] text-[9px]">[AGENTIC CORE]</span>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 text-[10px]">
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#FFB800] font-bold">[01]</span> Clarification Stage:
+                                </span>
+                                <span class="text-[#FFB800] font-bold text-right">Groq 8B generates 3 targeted architectural questions</span>
+                            </div>
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#FFB800] font-bold">[02]</span> Resolution Stage:
+                                </span>
+                                <span class="text-blueprint-light text-right">Answers validated &amp; folded into consolidated spec</span>
+                            </div>
+                            <div class="flex items-start justify-between border-b border-[#2a364f]/40 pb-1.5">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#FFB800] font-bold">[03]</span> Synthesis Stage:
+                                </span>
+                                <span class="text-blueprint-light text-right">Groq 70B produces ordered, self-contained build plan</span>
+                            </div>
+                            <div class="flex items-start justify-between">
+                                <span class="text-white font-semibold flex items-center gap-1.5">
+                                    <span class="text-[#FFB800] font-bold">[04]</span> FinOps Budget Guard:
+                                </span>
+                                <span class="text-[#FFB800] font-bold text-right">Halts pipeline (HTTP 402) on weekly budget exhaustion</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-2.5 border-t border-[#FFB800]/30 flex justify-between items-center text-[9px] font-mono text-blueprint-text">
+                        <span>THREAD_ID: AEGIS_ORCHESTRATOR</span>
+                        <span class="text-[#FFB800] font-bold">PIPELINE: ACTIVE // STATUS: ONLINE</span>
+                    </div>
+                </article>
+
             </div>
 
             <div class="absolute bottom-4 left-4 z-40 bg-[#060913]/90 border border-[#2a364f] px-3 py-1.5 text-[10px] text-blueprint-text flex items-center gap-3 backdrop-blur-md rounded-none font-mono">
-                <span>VIEWPORT: <strong id="stamp-coord" class="text-white">CENTERED [0, 0]</strong></span>
+                <span>VIEWPORT: <strong id="stamp-coord" class="text-white">CENTERED [0, -80]</strong></span>
                 <span class="text-[#2a364f]">|</span>
                 <span>DATA STREAMS: <strong class="text-sentinel">RUNNING DOTS SYNCED</strong></span>
             </div>
@@ -614,13 +746,26 @@
                         </p>
                     </div>
 
+                    <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 hover:border-[#FFB800]/60 transition-colors rounded-none">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 bg-[#FFB800] inline-block shrink-0 rounded-none"></span>
+                                <h3 class="text-xs font-bold text-white uppercase">Agentic Prompt Orchestration</h3>
+                            </div>
+                            <span class="text-[9px] font-mono text-[#FFB800]">[MOD-03]</span>
+                        </div>
+                        <p class="text-[10px] text-blueprint-text mt-2 leading-relaxed">
+                            Strict 3-stage agentic LLM pipelines with automated interrogation and FinOps token budget guards (HTTP 402).
+                        </p>
+                    </div>
+
                     <div class="border border-[#2a364f] bg-[#0a0f1d]/70 p-3 hover:border-blueprint-light/60 transition-colors rounded-none">
                         <div class="flex items-start justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="w-2 h-2 bg-blueprint-light inline-block shrink-0 rounded-none"></span>
                                 <h3 class="text-xs font-bold text-white uppercase">Sci-Fi UI/UX CAD Design</h3>
                             </div>
-                            <span class="text-[9px] font-mono text-blueprint-light">[MOD-03]</span>
+                            <span class="text-[9px] font-mono text-blueprint-light">[MOD-04]</span>
                         </div>
                         <p class="text-[10px] text-blueprint-text mt-2 leading-relaxed">
                             Hardware-accelerated DOM rendering, interactive CAD grid matrices, and strict technical blueprints.
@@ -636,8 +781,9 @@
                     <div class="space-y-1">
                         <div><span class="text-sentinel">&gt;</span> SentinelAI node linked... <span class="text-[#00FF8C]">ONLINE</span></div>
                         <div><span class="text-sentinel">&gt;</span> RepoLens AST telemetry... <span class="text-[#3B82F6]">CONNECTED</span></div>
+                        <div><span class="text-sentinel">&gt;</span> Aegis Orchestrator... <span class="text-[#FFB800]">HTTP 402 GUARD</span></div>
                         <div><span class="text-sentinel">&gt;</span> Running dots vector path... <span class="text-white">100% SYNC</span></div>
-                        <div class="animate-pulse text-white">&gt; Interactive Pan/Zoom Ready_</div>
+                        <div class="animate-pulse text-white">&gt; 3-Branch CAD Pyramid Ready_</div>
                     </div>
                 </div>
             </div>
