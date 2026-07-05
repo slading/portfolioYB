@@ -121,17 +121,21 @@ export function updateOrthogonalConnectors() {
     const centerNode = document.getElementById('node-center');
     const sentinelNode = document.getElementById('node-sentinel');
     const repolensNode = document.getElementById('node-repolens');
+    const orchestratorNode = document.getElementById('node-orchestrator');
 
-    if (!canvasEl || !centerNode || !sentinelNode || !repolensNode) return;
+    if (!canvasEl || !centerNode || !sentinelNode || !repolensNode || !orchestratorNode) return;
 
     const canvasRect = canvasEl.getBoundingClientRect();
     const centerRect = centerNode.getBoundingClientRect();
     const sentinelRect = sentinelNode.getBoundingClientRect();
     const repolensRect = repolensNode.getBoundingClientRect();
+    const orchestratorRect = orchestratorNode.getBoundingClientRect();
 
     const cLeftX = centerRect.left - canvasRect.left;
     const cRightX = centerRect.right - canvasRect.left;
+    const cMidX = (centerRect.left + centerRect.right) / 2 - canvasRect.left;
     const cY = (centerRect.top + centerRect.bottom) / 2 - canvasRect.top;
+    const cBottomY = centerRect.bottom - canvasRect.top;
 
     const sX = sentinelRect.right - canvasRect.left;
     const sY = (sentinelRect.top + sentinelRect.bottom) / 2 - canvasRect.top;
@@ -139,19 +143,29 @@ export function updateOrthogonalConnectors() {
     const rX = repolensRect.left - canvasRect.left;
     const rY = (repolensRect.top + repolensRect.bottom) / 2 - canvasRect.top;
 
+    const oTopX = (orchestratorRect.left + orchestratorRect.right) / 2 - canvasRect.left;
+    const oTopY = orchestratorRect.top - canvasRect.top;
+
     const setCircle = (id, x, y) => {
         const el = document.getElementById(id);
         if (el) { el.setAttribute('cx', String(x)); el.setAttribute('cy', String(y)); }
     };
-    setCircle('joint-center', (cLeftX + cRightX) / 2, cY);
+    setCircle('joint-center', cMidX, cY);
     setCircle('joint-sentinel', sX, sY);
     setCircle('joint-repolens', rX, rY);
+    setCircle('joint-orchestrator', oTopX, oTopY);
 
+    // Sentinel path (Left)
     const midSX = (cLeftX + sX) / 2;
     const pathSentinel = `M ${sX} ${sY} L ${midSX} ${sY} L ${midSX} ${cY} L ${cLeftX} ${cY}`;
 
+    // RepoLens path (Right)
     const midRX = (cRightX + rX) / 2;
     const pathRepolens = `M ${cRightX} ${cY} L ${midRX} ${cY} L ${midRX} ${rY} L ${rX} ${rY}`;
+
+    // Aegis Orchestrator path (Bottom)
+    const midOY = (cBottomY + oTopY) / 2;
+    const pathOrchestrator = `M ${cMidX} ${cBottomY} L ${cMidX} ${midOY} L ${oTopX} ${midOY} L ${oTopX} ${oTopY}`;
 
     const setPath = (id, d) => {
         const el = document.getElementById(id);
@@ -162,6 +176,8 @@ export function updateOrthogonalConnectors() {
     setPath('line-sentinel-anim', pathSentinel);
     setPath('line-repolens-base', pathRepolens);
     setPath('line-repolens-anim', pathRepolens);
+    setPath('line-orchestrator-base', pathOrchestrator);
+    setPath('line-orchestrator-anim', pathOrchestrator);
 }
 
 /**
@@ -169,9 +185,9 @@ export function updateOrthogonalConnectors() {
  * @param {Object} config - Object holding canvas references and zoom control buttons
  */
 export function initCanvasPanZoom(config) {
-    let scale = 0.85;
+    let scale = 0.65; // Slightly wider initial scale to fit all 3 branches comfortably
     let panX = 0;
-    let panY = 0;
+    let panY = -80; // Slightly shifted up to center the 3-node pyramid perfectly
     let isDragging = false;
     let startX = 0;
     let startY = 0;
@@ -215,7 +231,7 @@ export function initCanvasPanZoom(config) {
             e.preventDefault();
             const zoomSensitivity = 0.08;
             const delta = e.deltaY > 0 ? -zoomSensitivity : zoomSensitivity;
-            scale = Math.min(Math.max(0.3, scale + delta), 2.5);
+            scale = Math.min(Math.max(0.25, scale + delta), 2.5);
             applyCanvasTransform();
         }, { passive: false });
     }
@@ -228,15 +244,15 @@ export function initCanvasPanZoom(config) {
     }
     if (config.btnZoomOut) {
         config.btnZoomOut.addEventListener('click', () => {
-            scale = Math.max(0.3, scale - 0.15);
+            scale = Math.max(0.25, scale - 0.15);
             applyCanvasTransform();
         });
     }
     if (config.btnResetView) {
         config.btnResetView.addEventListener('click', () => {
-            scale = 0.85;
+            scale = 0.65;
             panX = 0;
-            panY = 0;
+            panY = -80;
             applyCanvasTransform();
         });
     }
